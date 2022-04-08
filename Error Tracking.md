@@ -1,5 +1,5 @@
 # **Cross Compile Errors**
-After creating my own repo for fprime files and changed the remote connection, I attempted
+After creating my own repo for fprime files and changing the remote connection, I attempted
 to re-generate and build the raspberrypi deployment.
 
 The build files were succesfully generated.
