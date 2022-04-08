@@ -6,7 +6,7 @@ The build files were succesfully generated.
 
 This error ocurred while the build was running:
 
-```
+```javascript {.line-numbers}
 Scanning dependencies of target version
 [ 72%] Generating version.hpp, __PHONY__
 fatal: Not a valid object name HEAD
@@ -33,7 +33,8 @@ make: *** [Makefile:164: Ref] Error 2
 ```
 
 This is the file the error traces to:
-```
+
+```javascript {.line-numbers}
 #!/usr/bin/env python3
 """
 # ===============================================================================
