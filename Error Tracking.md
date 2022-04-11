@@ -7,7 +7,7 @@ The build files were succesfully generated.
 This error ocurred while the build was running:
 
 ```
-Scanning dependencies of target version
+Scanning dependencies of target Svd_TlmChan
 [ 72%] Generating version.hpp, __PHONY__
 fatal: Not a valid object name HEAD
 Traceback (most recent call last):
