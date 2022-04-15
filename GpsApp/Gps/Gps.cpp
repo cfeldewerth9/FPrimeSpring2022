@@ -115,7 +115,7 @@ namespace GpsApp {
       //  the defined protocol messages into our GPS package struct. If all 9 items are parsed, we break. Otherwise we
       //  continue to scan the block of data looking for messages further in.
       for (U32 i = 0; i < (buffsize - 24); i++) {
-          status = sscanf(pointer, "$GPGGA,%f,%f,%c,%f,%c,%u,%u,%f,%f",
+          status = sscanf(pointer, "$GNGGA,%f,%f,%c,%f,%c,%u,%u,%f,%f",
               &packet.utcTime, &packet.dmNS, &packet.northSouth,
               &packet.dmEW, &packet.eastWest, &packet.lock,
               &packet.count, &packet.filler, &packet.altitude);
