@@ -47,6 +47,7 @@ add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathTypes/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathPorts/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathSender/")
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathReceiver/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/IMU/")
 
 # Add Topology subdirectory
 add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Top/")
