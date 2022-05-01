@@ -8,7 +8,16 @@ module Ref {
     # ----------------------------------------------------------------------
 
     @ The rate group scheduler input
-    sync input port schedIn: Svc.Sched
+    sync input port run: Svc.Sched
+
+    @ Output Port for reading/writing I2C
+    guarded input port writeRead: Drv.I2cWriteRead
+
+    @ guarded input port for writing I2c
+    guarded input port write: Drv.I2c
+
+    @ guarded input port for reading I2c
+    guarded input port read: Drv.I2c
 
     # ----------------------------------------------------------------------
     # Special ports
@@ -32,9 +41,6 @@ module Ref {
     @ telemetry port
     telemetry port tlmOut
 
-    @ Output Port for reading/writing I2C
-    output port I2cReadWrite: Drv.I2cWriteRead
-
     @ serial buffer port
     output port serialBufferOut: Fw.BufferSend
 
@@ -48,8 +54,16 @@ module Ref {
     @ Event throttle cleared
     event THROTTLE_CLEARED \
       severity activity high \
-      id 2 \
+      id 0 \
       format "Event throttle cleared"
+
+    @ Message received on I2C
+    event IMU_I2C_MSGIN(
+                       msg: string size 40 @< The message bytes as text
+                     ) \
+      severity activity high \
+      id 1 \
+      format "Received msg {} on I2C"
 
     # ----------------------------------------------------------------------
     # Commands
@@ -58,6 +72,12 @@ module Ref {
     @ Clear the event throttle
     async command CLEAR_EVENT_THROTTLE \
       opcode 0
+
+    @ Sends I2c data, prints read data
+    async command IMU_SEND_I2C(
+                              data: string size 40 @< data to send
+                            ) \
+      opcode 1
     
     # ----------------------------------------------------------------------
     # Telemetry

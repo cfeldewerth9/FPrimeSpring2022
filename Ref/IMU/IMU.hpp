@@ -50,12 +50,51 @@ namespace Ref {
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
 
-      //! Handler implementation for schedIn
+      //! Handler implementation for read
       //!
-      void schedIn_handler(
+      Drv::I2cStatus read_handler(
+          const NATIVE_INT_TYPE portNum, /*!< The port number*/
+          U32 addr, /*!< 
+      I2C slave device address
+      */
+          Fw::Buffer &serBuffer /*!< 
+      Buffer with data to read/write to/from
+      */
+      );
+
+      //! Handler implementation for run
+      //!
+      void run_handler(
           const NATIVE_INT_TYPE portNum, /*!< The port number*/
           NATIVE_UINT_TYPE context /*!< 
       The call order
+      */
+      );
+
+      //! Handler implementation for write
+      //!
+      Drv::I2cStatus write_handler(
+          const NATIVE_INT_TYPE portNum, /*!< The port number*/
+          U32 addr, /*!< 
+      I2C slave device address
+      */
+          Fw::Buffer &serBuffer /*!< 
+      Buffer with data to read/write to/from
+      */
+      );
+
+      //! Handler implementation for writeRead
+      //!
+      Drv::I2cStatus writeRead_handler(
+          const NATIVE_INT_TYPE portNum, /*!< The port number*/
+          U32 addr, /*!< 
+      I2C slave device address
+      */
+          Fw::Buffer &writeBuffer, /*!< 
+      Buffer to write data to the i2c device
+      */
+          Fw::Buffer &readBuffer /*!< 
+      Buffer to read back data from the i2c device, must set size when passing in read buffer
       */
       );
 
@@ -70,6 +109,16 @@ namespace Ref {
       void CLEAR_EVENT_THROTTLE_cmdHandler(
           const FwOpcodeType opCode, /*!< The opcode*/
           const U32 cmdSeq /*!< The command sequence number*/
+      );
+
+      //! Implementation for IMU_SEND_I2C command handler
+      //! Sends I2c data, prints read data
+      void IMU_SEND_I2C_cmdHandler(
+          const FwOpcodeType opCode, /*!< The opcode*/
+          const U32 cmdSeq, /*!< The command sequence number*/
+          const Fw::CmdStringArg& data /*!< 
+          data to send
+          */
       );
 
 
