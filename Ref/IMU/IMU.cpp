@@ -11,8 +11,9 @@
 // ======================================================================
 
 
-#include <Ref/IMU/IMU.hpp>
+#include "Ref/IMU/IMU.hpp"
 #include "Fw/Types/BasicTypes.hpp"
+#include "Ref/IMU/LSM6DSOX.hpp"
 
 namespace Ref {
 
@@ -54,7 +55,16 @@ namespace Ref {
         Fw::Buffer &serBuffer
     )
   {
-    // TODO return
+    size_t pos = 0;
+    while (pos < len) {
+      size_t read_len =
+        ((len - pos) > maxBufferSize()) ? maxBufferSize() : (len - pos);
+      bool read_stop = (pos < (len - read_len)) ? false : stop;
+      if (!_read(buffer + pos, read_len, read_stop))
+      return false;
+      pos += read_len;
+  }
+  return true;
   }
 
   void IMU ::

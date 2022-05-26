@@ -127,3 +127,66 @@ namespace Ref {
 } // end namespace Ref
 
 #endif
+
+// -------------------------------------------------------------------------------------------
+
+// line 457 @ https://github.com/adafruit/Adafruit_LSM6DS/blob/master/Adafruit_LSM6DS.cpp#L457
+
+// void Adafruit_LSM6DS::_read(void) {
+//   // get raw readings
+//   Adafruit_BusIO_Register data_reg = Adafruit_BusIO_Register(
+//       i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, LSM6DS_OUT_TEMP_L, 14);
+
+//   uint8_t buffer[14];
+//   data_reg.read(buffer, 14);
+
+//   rawTemp = buffer[1] << 8 | buffer[0];
+//   temperature = (rawTemp / temperature_sensitivity) + 25.0;
+
+//   rawAccX = buffer[9] << 8 | buffer[8];
+//   rawAccY = buffer[11] << 8 | buffer[10];
+//   rawAccZ = buffer[13] << 8 | buffer[12];
+
+//   float accel_scale = 1; // range is in milli-g per bit!
+//   switch (accelRangeBuffered) {
+//   case LSM6DS_ACCEL_RANGE_16_G:
+//     accel_scale = 0.488;
+//     break;
+//   case LSM6DS_ACCEL_RANGE_8_G:
+//     accel_scale = 0.244;
+//     break;
+//   case LSM6DS_ACCEL_RANGE_4_G:
+//     accel_scale = 0.122;
+//     break;
+//   case LSM6DS_ACCEL_RANGE_2_G:
+//     accel_scale = 0.061;
+//     break;
+//   }
+
+//   accX = rawAccX * accel_scale * SENSORS_GRAVITY_STANDARD / 1000;
+//   accY = rawAccY * accel_scale * SENSORS_GRAVITY_STANDARD / 1000;
+//   accZ = rawAccZ * accel_scale * SENSORS_GRAVITY_STANDARD / 1000;
+// }
+
+// -------------------------------------------------------------------------------------------
+
+// line 833 @ https://github.com/adafruit/Adafruit_LSM6DS/blob/master/Adafruit_LSM6DS.cpp#L457
+
+// int Adafruit_LSM6DS::readAcceleration(float &x, float &y, float &z) {
+//   int16_t data[3];
+
+//   Adafruit_BusIO_Register accel_data = Adafruit_BusIO_Register(
+//       i2c_dev, spi_dev, ADDRBIT8_HIGH_TOREAD, LSM6DS_OUTX_L_A, 6);
+
+//   if (!accel_data.read((uint8_t *)data, sizeof(data))) {
+//     x = y = z = NAN;
+//     return 0;
+//   }
+
+//   // scale to range of -4 – 4
+//   x = data[0] * 4.0 / 32768.0;
+//   y = data[1] * 4.0 / 32768.0;
+//   z = data[2] * 4.0 / 32768.0;
+
+//   return 1;
+// }
