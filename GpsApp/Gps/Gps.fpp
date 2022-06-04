@@ -1,7 +1,12 @@
 module GpsApp {
 
-    @ Component for reading GPS strings from GPS hardware
+    @ Component for working with a GPS device
     active component Gps {
+
+        include "cmds.fppi"
+        include "events.fppi"
+        include "tlm.fppi"
+        include "param.fppi"
 
         #-----
         # general ports
@@ -17,7 +22,7 @@ module GpsApp {
         @ command registration port
         command reg port cmdRegOut
 
-        @ command reponse port
+        @ command response port
         command resp port cmdResponseOut
 
         @ event port
@@ -26,60 +31,19 @@ module GpsApp {
         @ text event port
         text event port textEventOut
 
+        @ time get port
+        time get port timeGetOut
+
         @ telemetry port
         telemetry port tlmOut
 
-        @ receive serial data port
+        @ output port for writing commands over UART to device
+        output port serialWrite: Drv.SerialWrite
+
+        @ receive serial data port to read data from UART
         async input port serialRecv: Drv.SerialRead
 
-        @ serial buffer port
+        @ serial buffer port for device to write into over UART
         output port serialBufferOut: Fw.BufferSend
-
-        @ Time get port
-        time get port timeGetOut
-
-        #-----
-        # parameters
-        #-----
-
-        #-----
-        # events
-        #-----
-
-        @ notification on GPS lock acquired
-        event GPS_LOCK_ACQUIRED \
-        severity activity high \
-        id 0 \
-        format "GPS lock acquired"
-
-        @ warning on GPS lock lost
-        event GPS_LOCK_LOST \
-        severity warning high \
-        id 1 \
-        format "GPS lock lost"
-
-        #-----
-        # commands
-        #-----
-
-        @ command to force an EVR reporting lock status
-        async command REPORT_STATUS \
-        opcode 0
-
-        #-----
-        # telemetry
-        #-----
-
-        @ current latitude
-        telemetry GPS_LATITUDE: F32 id 0
-
-        @ current longitude
-        telemetry GPS_LONGITUDE: F32 id 1
-
-        @ current altitude
-        telemetry GPS_ALTITUDE: F32 id 2
-
-        @ current number of satellites
-        telemetry GPS_SV_COUNT: F32 id 3
     }
 }

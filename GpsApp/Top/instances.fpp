@@ -8,7 +8,7 @@ module GpsApp {
 
     constant queueSize = 10
 
-    constant stackSize = 16 * 1024
+    constant stackSize = 64 * 1024
 
   }
 
@@ -19,19 +19,12 @@ module GpsApp {
   instance blockDrv: Drv.BlockDriver base id 0x0100 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 140 \
-  {
-
-    phase Fpp.ToCpp.Phases.instances """
-    // Declared in RefTopologyDefs.cpp
-    """
-
-  }
+    priority 99
 
   instance rateGroup1Comp: Svc.ActiveRateGroup base id 0x0200 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 120 \
+    priority 98 \
   {
 
     phase Fpp.ToCpp.Phases.configObjects """
@@ -51,7 +44,7 @@ module GpsApp {
   instance rateGroup2Comp: Svc.ActiveRateGroup base id 0x0300 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 119 \
+    priority 98 \
   {
 
     phase Fpp.ToCpp.Phases.configObjects """
@@ -71,7 +64,7 @@ module GpsApp {
   instance rateGroup3Comp: Svc.ActiveRateGroup base id 0x0400 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 118 \
+    priority 98 \
   {
 
     phase Fpp.ToCpp.Phases.configObjects """
@@ -91,12 +84,12 @@ module GpsApp {
   instance cmdDisp: Svc.CommandDispatcher base id 0x0500 \
     queue size 20 \
     stack size Default.stackSize \
-    priority 101
+    priority 90
 
   instance cmdSeq: Svc.CmdSequencer base id 0x0600 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 100 \
+    priority 90 \
   {
 
     phase Fpp.ToCpp.Phases.configConstants """
@@ -122,7 +115,7 @@ module GpsApp {
   instance fileDownlink: Svc.FileDownlink base id 0x0700 \
     queue size 30 \
     stack size Default.stackSize \
-    priority 100 \
+    priority 85 \
   {
 
     phase Fpp.ToCpp.Phases.configConstants """
@@ -148,32 +141,27 @@ module GpsApp {
   instance fileManager: Svc.FileManager base id 0x0800 \
     queue size 30 \
     stack size Default.stackSize \
-    priority 100
+    priority 85
 
   instance fileUplink: Svc.FileUplink base id 0x0900 \
     queue size 30 \
     stack size Default.stackSize \
-    priority 100
-
-  instance pingRcvr: Ref.PingReceiver base id 0x0A00 \
-    queue size Default.queueSize \
-    stack size Default.stackSize \
-    priority 100
+    priority 85
 
   instance eventLogger: Svc.ActiveLogger base id 0x0B00 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 98
+    priority 90
 
   instance chanTlm: Svc.TlmChan base id 0x0C00 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 97
+    priority 92
 
   instance prmDb: Svc.PrmDb base id 0x0D00 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 96 \
+    priority 91 \
   {
 
     phase Fpp.ToCpp.Phases.instances """
@@ -186,18 +174,10 @@ module GpsApp {
 
   }
 
-  instance mathSender: Ref.MathSender base id 0xE00 \
+  instance GPS: GpsApp.Gps base id 0x0F00 \
     queue size Default.queueSize \
     stack size Default.stackSize \
-    priority 100
-
-  instance gps: GpsApp.Gps base id 0x0F00 \
-    queue size Default.queueSize \
-    stack size Default.stackSize \
-    priority 100 \
-  {
-    
-  }
+    priority 80
 
   # ----------------------------------------------------------------------
   # Queued component instances
@@ -223,27 +203,6 @@ module GpsApp {
 
   }
 
-  instance SG1: Ref.SignalGen base id 0x2100 \
-    queue size Default.queueSize
-
-  instance SG2: Ref.SignalGen base id 0x2200 \
-    queue size Default.queueSize
-
-  instance SG3: Ref.SignalGen base id 0x2300 \
-    queue size Default.queueSize
-
-  instance SG4: Ref.SignalGen base id 0x2400 \
-    queue size Default.queueSize
-
-  instance SG5: Ref.SignalGen base id 0x2500 \
-    queue size Default.queueSize
-
-  instance sendBuffComp: Ref.SendBuff base id 0x2600 \
-    queue size Default.queueSize
-
-  instance mathReceiver: Ref.MathReceiver base id 0x2700 \
-    queue size Default.queueSize
-    
   # ----------------------------------------------------------------------
   # Passive component instances
   # ----------------------------------------------------------------------
@@ -260,7 +219,7 @@ module GpsApp {
 
     phase Fpp.ToCpp.Phases.configConstants """
     enum {
-      PRIORITY = 100,
+      PRIORITY = 97,
       STACK_SIZE = Default::stackSize
     };
     """
@@ -338,11 +297,9 @@ module GpsApp {
   instance linuxTime: Svc.Time base id 0x4500 \
     at "../../Svc/LinuxTime/LinuxTime.hpp" \
   {
-
     phase Fpp.ToCpp.Phases.instances """
     Svc::LinuxTime linuxTime(FW_OPTIONAL_NAME("linuxTime"));
     """
-
   }
 
   instance rateGroupDriverComp: Svc.RateGroupDriver base id 0x4600 {
@@ -350,7 +307,7 @@ module GpsApp {
     phase Fpp.ToCpp.Phases.configObjects """
     NATIVE_INT_TYPE rgDivs[Svc::RateGroupDriver::DIVIDER_SIZE] = { 1, 2, 4 };
     """
-
+    
     phase Fpp.ToCpp.Phases.instances """
     Svc::RateGroupDriver rateGroupDriverComp(
         FW_OPTIONAL_NAME("rateGroupDriverComp"),
@@ -360,8 +317,6 @@ module GpsApp {
     """
 
   }
-
-  instance recvBuffComp: Ref.RecvBuff base id 0x4700
 
   instance staticMemory: Svc.StaticMemory base id 0x4800
 
@@ -381,10 +336,40 @@ module GpsApp {
 
   instance systemResources: Svc.SystemResources base id 0x4B00
 
-  instance gpsSerial: Drv.LinuxSerialDriver base id 0x4C00 \
-    at "../../Drv/LinuxSerialDriver/LinuxSerialDriver.hpp" \
+  instance GPS_SERIAL: Drv.LinuxSerialDriver base id 0x4C00 \
   {
+    phase Fpp.ToCpp.Phases.configComponents  """
+    {
+    const bool status = GPS_SERIAL.open(
+      state.device,
+      Drv::LinuxSerialDriverComponentImpl::BAUD_9600,
+      Drv::LinuxSerialDriverComponentImpl::NO_FLOW,
+      Drv::LinuxSerialDriverComponentImpl::PARITY_NONE,
+      true
+    );
+    if (!status) {
+      Fw::Logger::logMsg("[ERROR] Could not open GPS UART: %s\\n", reinterpret_cast<POINTER_CAST>(state.device));
+      Init::status = false;
+      }
+    else {
+      Fw::Logger::logMsg("[INFO] Opened GPS UART driver: %s\\n", reinterpret_cast<POINTER_CAST>(state.device));
+      Init::status = true;
+    }
+    }
+    """
+    
+    phase Fpp.ToCpp.Phases.startTasks """
+    if (Init::status) {
+      GPS_SERIAL.startReadThread();
+    }
+    else {
+      Fw::Logger::logMsg("[ERROR] Initialization failed; not starting UART driver\\n");
+    }
+    """
 
+    phase Fpp.ToCpp.Phases.stopTasks """
+    GPS_SERIAL.quitReadThread();
+    """
   }
 
 }

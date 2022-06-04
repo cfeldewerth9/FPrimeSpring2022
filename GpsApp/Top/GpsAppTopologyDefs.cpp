@@ -2,12 +2,18 @@
 
 namespace GpsApp {
 
-  namespace Allocation {
+    namespace Allocation {
+  
+      Fw::MallocAllocator mallocator;
+  
+    }
 
-    Fw::MallocAllocator mallocator;
+    namespace Init {
+
+        bool status = true;
+    
+    }
+  
+    Drv::BlockDriver blockDrv(FW_OPTIONAL_NAME("blockDrv"));
 
   }
-
-  Drv::BlockDriver blockDrv(FW_OPTIONAL_NAME("blockDrv"));
-
-}

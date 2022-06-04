@@ -3,6 +3,7 @@
 
 #include "Drv/BlockDriver/BlockDriver.hpp"
 #include "Fw/Types/MallocAllocator.hpp"
+#include "Fw/Logger/Logger.hpp"
 #include "GpsApp/Top/FppConstantsAc.hpp"
 #include "Svc/FramingProtocol/FprimeProtocol.hpp"
 
@@ -18,25 +19,36 @@ namespace GpsApp {
 
   }
 
+  namespace Init {
+
+    // Initialization status
+    extern bool status;
+
+  }
+
   // State for topology construction
   struct TopologyState {
     TopologyState() :
       hostName(""),
-      portNumber(0)
+      portNumber(0),
+      device("")
     {
 
     }
     TopologyState(
         const char *hostName,
-        U32 portNumber
+        U32 portNumber,
+        const char *device
     ) :
       hostName(hostName),
-      portNumber(portNumber)
+      portNumber(portNumber),
+      device(device)
     {
 
     }
     const char* hostName;
     U32 portNumber;
+    const char *device;
   };
 
   // Health ping entries
@@ -49,7 +61,7 @@ namespace GpsApp {
     namespace fileDownlink { enum { WARN = 3, FATAL = 5 }; }
     namespace fileManager { enum { WARN = 3, FATAL = 5 }; }
     namespace fileUplink { enum { WARN = 3, FATAL = 5 }; }
-    namespace pingRcvr { enum { WARN = 3, FATAL = 5 }; }
+    namespace GPS { enum { WARN = 3, FATAL = 5 }; }
     namespace prmDb { enum { WARN = 3, FATAL = 5 }; }
     namespace rateGroup1Comp { enum { WARN = 3, FATAL = 5 }; }
     namespace rateGroup2Comp { enum { WARN = 3, FATAL = 5 }; }

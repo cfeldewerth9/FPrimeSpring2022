@@ -21,15 +21,15 @@
 
 #define WHO_AM_I                0x0F
 
-#define CTRL1_xL                0x10
+#define CTRL1_XL                0x10
 #define CTRL2_G                 0x11
 #define CTRL3_C                 0x12
 #define CTRL4_C                 0x13
 #define CTRL5_C                 0x14
 #define CTRL6_C                 0x15
 #define CTRL7_G                 0x16
-#define CTRL8_xL                0x17
-#define CTRL9_xL                0x18
+#define CTRL8_XL                0x17
+#define CTRL9_XL                0x18
 #define CTRL10_c                0x19
 
 #define ALL_INT_SRC             0x1A
@@ -44,8 +44,8 @@
 #define OUT_TEMP_L              0x20
 #define OUT_TEMP_H              0x21
 
-#define OUTx_L_G                0x22
-#define OUTx_H_G                0x23
+#define OUTX_L_G                0x22
+#define OUTX_H_G                0x23
 
 #define OUTY_L_G                0x24
 #define OUTY_H_G                0x25
@@ -53,8 +53,8 @@
 #define OUTZ_L_G                0x26
 #define OUTZ_H_G                0x27
 
-#define OUTx_L_A                0x28
-#define OUTx_H_A                0x29
+#define OUTX_L_A                0x28
+#define OUTX_H_A                0x29
 
 #define OUTY_L_A                0x2A
 #define OUTY_H_A                0x2B
@@ -84,8 +84,8 @@
 
 #define UI_STATUS_REG_OIS       0x49
 
-#define UI_OUTx_L_G_OIS         0x4A
-#define UI_OUTx_H_G_OIS         0x4B
+#define UI_OUTX_L_G_OIS         0x4A
+#define UI_OUTX_H_G_OIS         0x4B
 
 #define UI_OUTY_L_G_OIS         0x4C
 #define UI_OUTY_H_G_OIS         0x4D
@@ -93,8 +93,8 @@
 #define UI_OUTZ_L_G_OIS         0x4E
 #define UI_OUTZ_H_G_OIS         0x4F
 
-#define UI_OUTx_L_A_OIS         0x50
-#define UI_OUTx_H_A_OIS         0x51
+#define UI_OUTX_L_A_OIS         0x50
+#define UI_OUTX_H_A_OIS         0x51
 
 #define UI_OUTY_L_A_OIS         0x52
 #define UI_OUTY_H_A_OIS         0x53
@@ -131,7 +131,7 @@
 #define UI_CTRL2_OIS            0x71
 #define UI_CTRL3_OIS            0x72
 
-#define x_OFS_USR               0x73
+#define X_OFS_USR               0x73
 #define Y_OFS_USR               0x74
 #define Z_OFS_USR               0x75
 
@@ -139,8 +139,8 @@
 
 #define FIFO_DATA_OUT_TAG       0x78
 
-#define FIFO_DATA_OUT_x_L       0x79
-#define FIFO_DATA_OUT_x_H       0x7A
+#define FIFO_DATA_OUT_X_L       0x79
+#define FIFO_DATA_OUT_X_H       0x7A
 
 #define FIFO_DATA_OUT_Y_L       0x7B
 #define FIFO_DATA_OUT_Y_H       0x7C
