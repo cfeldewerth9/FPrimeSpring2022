@@ -1,0 +1,6 @@
+data/X_NUCLEO_COMMON.lib.i
+data/LSM6DSOXSensor.cpp.i
+data/LSM6DSOXSensor.h.i
+data/lsm6dsox_reg.h.i
+data/ST_INTERFACES.lib.i
+data/lsm6dsox_reg.c.i
