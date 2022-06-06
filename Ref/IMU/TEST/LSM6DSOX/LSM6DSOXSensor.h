@@ -48,7 +48,7 @@
 #include "lsm6dsox_reg.h"
 #include "MotionSensor.h"
 #include "GyroSensor.h"
-#include "mbed.h"
+// #include "mbed.h"
 #include <assert.h>
 
 /* Defines -------------------------------------------------------------------*/
